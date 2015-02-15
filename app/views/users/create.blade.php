@@ -2,7 +2,7 @@
 
 @section('form')
 <!-- REGISTER NEW USER FORM -->  
-<div class="well">  
+<div class="panel panel-default">  
   <div class="panel-body">
     {{ Form::open(['route' => 'users.store']) }}
 

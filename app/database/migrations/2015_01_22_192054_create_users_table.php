@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration {
 			$table->text('description');
 			$table->unsignedInteger('recipe_count');
 			$table->timestamps();
+			$table->rememberToken();
 		});
 	}
 
