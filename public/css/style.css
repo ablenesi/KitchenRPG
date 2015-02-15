@@ -1,0 +1,52 @@
+.big_title{
+  text-align: center;
+  font-size: 6em;
+  font-weight: 600;
+}
+
+.active{
+  background-color:#03A9F4 !important;
+  border-color:#03A9F4 !important;
+}
+.strech{
+  width: 100%;
+}
+.main{
+  max-width: 1024px;
+  margin: auto;
+}
+
+.icon-text{
+  font-size: 18px;
+}
+
+.panel-header>.img-thumbnail{
+  border: 0px;
+  padding: 0px;
+  border-radius: 0px;
+}
+
+.panel-body>.list-inline{
+  margin: auto;
+  float: none;
+  text-align: center;
+}
+
+.row-recipes {
+  -moz-column-width: 22em;
+  -webkit-column-width: 22em;
+  -moz-column-gap: 1em;
+  -webkit-column-gap: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-category {
+  display: inline-block;
+  margin:  1rem;
+  padding:  1rem;
+  width:  100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
