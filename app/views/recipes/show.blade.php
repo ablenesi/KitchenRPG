@@ -3,18 +3,18 @@
 @section('content')
 <div class="panel panel-info ">
   <div class="panel-header">
-    <img class="img-thumbnail" src={{$recipe->image_url}}/>
+    <img class="img-thumbnail no-print" src={{$recipe->image_url}}/>
   </div>
   <div class="panel-body">
     <div class = "content">
       <div class = "row">
         <div class = "col-lg-4">
-          <img class="img-circle img-thumbnail" src={{$recipe->user->image_url}}/>
+          <img class="img-circle img-thumbnail no-print" src={{$recipe->user->image_url}}/>
         </div>
         <div class = "col-lg-8">
           <h1>{{ $recipe->title }}</h1>
           <h3>{{ $recipe->user->full_name}}'s recipe</h3>
-          <p class="icon-text mdi-device-access-time"> uploaded:  {{ $recipe->created_at }}</p>
+          <p class="icon-text mdi-device-access-time no-print"> uploaded:  {{ $recipe->created_at }}</p>
           <br/>
           <p>{{ $recipe->description }}</p>
         </div>
@@ -38,15 +38,15 @@
           </div>
           @endforeach
           <br/>
-          <div class="form-group">
+          <div class="form-group no-print">
             <input class="form-control floating-label" id="focusedInput" type="text" placeholder="Enter servings number">
             <button type="submit" class="btn btn-primary strech">Add selected to shopping list</button>
           </div>
         </div>
       </div>
 
-      <div class="panel panel-info">
-        <div class="panel-heading">
+      <div class="panel panel-info no-print">
+        <div class="panel-heading ">
           <h3> Additional information </h3>
         </div>
 
@@ -64,11 +64,11 @@
               <h4 class="list-group-item-heading mdi-device-access-time"><b> Done in: {{floor(($recipe->prep_time+$recipe->cook_time) / 60) }}' {{($recipe->prep_time+$recipe->cook_time) % 60 }}"</b></h4>
             </div>
 
-            <div class="list-group-item">
+            <div class="list-group-item no-print">
               <h4 class="list-group-item-heading mdi-communication-chat"> Comment count: {{$recipe->comment_count}}</h4>
             </div>
 
-            <div class="list-group-item">
+            <div class="list-group-item no-print">
               <h4 class="list-group-item-heading mdi-action-favorite"> Follower count: {{$recipe->follow_count}}</h4>
             </div>
           </div>
@@ -78,7 +78,7 @@
 
     <div class = "col-lg-8">
       <div class="panel panel-success">
-        <div class="panel-heading">
+        <div class="panel-heading no-print">
           <h3> Steps: </h3>
         </div>
         <div class="panel-body">
@@ -92,7 +92,7 @@
     </div>
   </div>
 
-  <div class = "row">
+  <div class = "row no-print">
     <div class = "col-lg-12">
       <div class="panel panel-warning">
         <div class="panel-heading">

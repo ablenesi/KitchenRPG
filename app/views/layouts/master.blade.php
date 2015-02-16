@@ -3,8 +3,11 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scali=1"/>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material css -->
+  <!--
   <link href="/css/ripples.min.css" rel="stylesheet">
   <link href="/css/material.css" rel="stylesheet">
+  -->
   <link rel= "stylesheet" href="/css/style.css"/>
   <title>KitcheRPG</title>
   </head>
@@ -26,10 +29,21 @@
                 {{ Form::close() }}
               </li>
             </ul>
+            @if(Auth::check())              
+              <ul class="nav navbar-nav navbar-right">              
+                <li>{{ link_to('profile', Auth::user()->first_name.'\'s Profile' ) }}</li>  
+                <li>{{ link_to('logout', 'Logout ') }}</li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <img id="user_image" src={{Auth::user()->image_url}}> 
+              </ul>
+            @else
+              <ul class="nav navbar-nav navbar-right">                            
+                <li>{{link_to("/login","Login")}}</li>
+                <li>{{link_to("/register","Register")}}</li>
+              </ul>
+            @endif
             
-            <ul class="nav navbar-nav navbar-right">
-              <li>{{link_to("/login","Login")}}</li>
-            </ul>
           </div>
         </div>
         <div class="pull-right">
@@ -46,7 +60,7 @@
 
 
     <footer>
-      <div class = "container">
+      <div class = "container no-print">
         <p> All rights reserved © 2015 KitchenRPG </p>
       </div>
     </footer>

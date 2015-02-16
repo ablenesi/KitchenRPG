@@ -43,7 +43,7 @@ class UsersController extends \BaseController {
 		$user->email = Input::get("email");
 		$user->description = Input::get("description");
 		$user->full_name = $user->first_name." ".$user->last_name;
-		$user->image_url = "http://flathash.com/YOUR-TEXT".$user->full_name.$user->id;
+		$user->image_url = "http://flathash.com/".$user->full_name;
 		$user->save();
 
 		return Redirect::route('users.index');

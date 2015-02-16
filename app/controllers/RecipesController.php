@@ -21,7 +21,11 @@ class RecipesController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		if(Auth::check()){
+			return View::make('recipes.create');	
+		}
+		return Redirect::to('/login')->with(array('error'=> "You have to logi to view that page!"));
+		
 	}
 
 

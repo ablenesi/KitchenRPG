@@ -1,5 +1,6 @@
 <?php
 
+
 class SessionsController extends BaseController {
 
 	/**
@@ -35,7 +36,8 @@ class SessionsController extends BaseController {
 		{
 			return Auth::user();
 		}
-		return 'Failed!';
+		return Redirect::to('login')->with(array('error' => "Invalid email or password.
+Please try again!"))->withInput();
 	}
 
 
@@ -78,12 +80,12 @@ class SessionsController extends BaseController {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+		Auth::logout();
+		return Redirect::route('recipes.index');
 	}
 
 

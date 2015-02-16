@@ -1,4 +1,4 @@
-@extends('layouts.login')
+@extends('layouts.form')
 
 @section('form')
 <!-- REGISTER NEW USER FORM -->  
