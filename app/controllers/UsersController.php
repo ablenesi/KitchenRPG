@@ -42,7 +42,8 @@ class UsersController extends \BaseController {
 		$user->password = Hash::make(Input::get("password"));
 		$user->email = Input::get("email");
 		$user->description = Input::get("description");
-		$user->full_name = $user->first_name.$user->last_name;
+		$user->full_name = $user->first_name." ".$user->last_name;
+		$user->image_url = "http://flathash.com/YOUR-TEXT".$user->full_name.$user->id;
 		$user->save();
 
 		return Redirect::route('users.index');

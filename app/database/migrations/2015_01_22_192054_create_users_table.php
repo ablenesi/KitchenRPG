@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('password');
 			$table->string('email')->unique();
 			$table->string('image_url');
-			$table->text('description');
+			$table->text('description')->nullable = true;
 			$table->unsignedInteger('recipe_count');
 			$table->timestamps();
 			$table->rememberToken();

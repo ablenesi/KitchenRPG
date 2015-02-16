@@ -36,7 +36,7 @@ class UserTableSeeder extends Seeder {
     $user->email = $this->faker->email;    
     $user->description = implode(' ',$this->faker->sentences($nb = 5));
     $user->full_name = $user->first_name." ".$user->last_name;
-    $user->image_url = "http://robohash.org/".$user->full_name.$user->id.".png?size=300x300";
+    $user->image_url = "http://flathash.com/YOUR-TEXT".$user->full_name.$user->id;
     $user->save();
     return $user;
   }

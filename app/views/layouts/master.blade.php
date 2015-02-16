@@ -28,7 +28,7 @@
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
-              <li>{{link_to("/users/create","Login")}}</li>
+              <li>{{link_to("/login","Login")}}</li>
             </ul>
           </div>
         </div>
