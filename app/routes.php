@@ -13,11 +13,18 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return Redirect::to("recipes");
 });
+
 Route::get('login', 'SessionsController@create');
 Route::get('logout', 'SessionsController@destroy');
+Route::get('dashboard', 'SessionsController@show');
 Route::get('register', 'UsersController@create');
+
 Route::resource('users', 'UsersController');
-Route::resource('recipes', 'RecipesController');
 Route::resource('sessions', 'SessionsController');
+
+Route::resource('recipes', 'RecipesController');
+Route::resource('ingredients', 'IngredientsController');
+Route::resource('steps', 'StepsController');
+Route::resource('comments', 'CommentsController');

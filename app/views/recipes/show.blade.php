@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('content')
 <div class="panel panel-info ">
   <div class="panel-header">
@@ -13,6 +12,16 @@
         </div>
         <div class = "col-lg-8">
           <h1>{{ $recipe->title }}</h1>
+          @if(Auth::check())
+            @if(Auth::user()->id == $recipe->user->id || Auth::user()->admin == 1)
+              <ul class="list-inline">
+                <li title="Delete this recipe">    
+                  {{ Form::open(array('route' => array('recipes.destroy', $recipe->id), 'method' => 'delete')) }}
+                    <button type="submit" href="{{ URL::route('recipes.destroy', $recipe->id) }}" class="btn btn-danger btn-mini">Delete</button>
+                  {{ Form::close() }}
+                </li>                
+            @endif
+          @endif
           <h3>{{ $recipe->user->full_name}}'s recipe</h3>
           <p class="icon-text mdi-device-access-time no-print"> uploaded:  {{ $recipe->created_at }}</p>
           <br/>
@@ -22,9 +31,9 @@
     </div>
   </div>
 </div>
+
 <div class = "content">
   <div class = "row">
-
     <div class = "col-lg-4">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -37,6 +46,7 @@
             <h4 class="list-group-item-heading mdi-toggle-check-box-outline-blank"> {{$ingredient->quantity}} {{$ingredient->unit}} {{$ingredient->name}}</h4>
           </div>
           @endforeach
+          @include('ingredients.include.create')
           <br/>
           <div class="form-group no-print">
             <input class="form-control floating-label" id="focusedInput" type="text" placeholder="Enter servings number">
@@ -86,6 +96,7 @@
             @foreach($recipe->steps as $step)
               @include('steps.include.row')
             @endforeach
+            @include('steps.include.create')
           </div>
         </div>
       </div>
@@ -103,6 +114,8 @@
             @foreach($recipe->comments as $comment)
               @include('comments.include.row')
             @endforeach
+            
+            @include('comments.include.create')
             <!-- FORM FOR IM-->
           </div>
         </div>

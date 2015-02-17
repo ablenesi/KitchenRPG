@@ -34,10 +34,9 @@ class SessionsController extends BaseController {
 	{
 		if (Auth::attempt(Input::only('email','password')))
 		{
-			return Auth::user();
+			return Redirect::to("recipes");
 		}
-		return Redirect::to('login')->with(array('error' => "Invalid email or password.
-Please try again!"))->withInput();
+		return Redirect::to('login')->with(array('error' => "Invalid email or password. Please try again!"))->withInput();
 	}
 
 
@@ -47,9 +46,12 @@ Please try again!"))->withInput();
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show()
 	{
-		//
+		if(Auth::check()){
+			return View::make('sessions.show');
+		}
+		return Redirect::to('/login')->with(array('error'=> "You have to login to view that page!"));
 	}
 
 

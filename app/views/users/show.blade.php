@@ -26,7 +26,13 @@
   </div>
   </div>
 </div>
+
 <h1>{{ $user->first_name}}'s Recipes</h1>
+@if(Auth::check())
+  @if(Auth::user()->id == $user->id)
+    {{link_to("recipes/create","Add recipe",array('class'=>"btn btn-success"))}}
+  @endif
+@endif
 @if($user->recipes->isEmpty())
   <h3>No recipes uploaded yet ...</h3>
 @else
@@ -35,4 +41,5 @@
     @include('recipes.include.panel')
   @endforeach
 @endif
+
 @stop

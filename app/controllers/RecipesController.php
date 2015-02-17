@@ -24,7 +24,7 @@ class RecipesController extends \BaseController {
 		if(Auth::check()){
 			return View::make('recipes.create');	
 		}
-		return Redirect::to('/login')->with(array('error'=> "You have to logi to view that page!"));
+		return Redirect::to('/login')->with(array('error'=> "You have to login to view that page!"));
 		
 	}
 
@@ -35,8 +35,27 @@ class RecipesController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		//
+	{		
+		$validation = Validator::make(Input::all(),Recipe::$rules);
+		if ($validation->fails())
+		{
+			return Redirect::back()->withInput()->withErrors($validation->messages());
+		}
+	    $recipe = new Recipe();
+	    $recipe->title = Input::get("title");
+	    $recipe->description = Input::get("description");
+	    $recipe->serves = Input::get("serves");
+	    $recipe->prep_time = Input::get("prep_time_hours")*60 +Input::get("prep_time_minutes");
+	    $recipe->cook_time = Input::get("cook_time_hours")*60 +Input::get("cook_time_minutes");
+	    $recipe->image_url = "http://lorempixel.com/1200/400/food";
+	    $recipe->comment_count = 0;
+	    $recipe->follow_count = 0;
+	    $recipe->save();
+	    $user = Auth::user();
+	    $user->recipes()->save($recipe);
+	    $user->recipe_count = $user->recipe_count;
+	    $user->save();
+	    return $this->show($recipe->id);
 	}
 
 
@@ -51,7 +70,6 @@ class RecipesController extends \BaseController {
 		$recipe = Recipe::where('id',$id)->first();
 		return View::make('recipes.show',['recipe'=>$recipe]);
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -84,9 +102,10 @@ class RecipesController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($id)
-	{
-		//
+	{		
+		$recipe = Recipe::where('id',$id)->first();		
+		$recipe->delete();		
+		return Redirect::to('recipes');
 	}
-
 
 }

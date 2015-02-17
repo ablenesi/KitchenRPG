@@ -6,4 +6,8 @@ class Step extends Eloquent {
   {
     return $this->belongsTo('Recipe');
   }
+
+  public static $rules = [    
+    'description' => 'required|min:10'
+  ];
 }

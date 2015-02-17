@@ -22,16 +22,11 @@
 
             <ul class="nav navbar-nav">
               <li><a href="/recipes">Recipes</a></li>
-              <li><a href="/users">Users</a></li>
-              <li>
-                {{ Form::open(array('class'=>'navbar-form navbar-left')) }}
-                {{ Form::text('search','Search',array('class'=>'form-control col-lg-8')) }}
-                {{ Form::close() }}
-              </li>
+              <li><a href="/users">Users</a></li>              
             </ul>
             @if(Auth::check())              
               <ul class="nav navbar-nav navbar-right">              
-                <li>{{ link_to('profile', Auth::user()->first_name.'\'s Profile' ) }}</li>  
+                <li>{{ link_to('users/'.Auth::user()->id, Auth::user()->first_name.'\'s Profile' ) }}</li>  
                 <li>{{ link_to('logout', 'Logout ') }}</li>
               </ul>
               <ul class="nav navbar-nav navbar-right">

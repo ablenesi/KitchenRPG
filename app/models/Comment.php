@@ -11,4 +11,7 @@ class Comment extends Eloquent {
   {
     return $this->belongsTo('User');
   }
+
+  public static $rules = [
+    'comment' => 'required|min:10'];
 }

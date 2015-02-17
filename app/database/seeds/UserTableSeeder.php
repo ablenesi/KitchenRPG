@@ -44,7 +44,10 @@ class UserTableSeeder extends Seeder {
   private function createFakeUsers($n){
     echo "Generateing Fake Users ".$n."\n";
     $users = array($n);
-    for ($i=0; $i < $n; $i++) { 
+      echo "  0/".$n.") ADMIN";
+      $users[0] = $this->createFakeUser();
+      $users[0]->admin = 1;
+    for ($i=1; $i < $n; $i++) { 
       echo "  ".$i."/".$n.") ";
       $users[$i] = $this->createFakeUser();
     }
@@ -59,7 +62,7 @@ class UserTableSeeder extends Seeder {
     $recipe->serves = mt_rand(1,6);
     $recipe->prep_time = mt_rand(10,60);
     $recipe->cook_time = mt_rand(10,160);
-    $recipe->image_url = $this->faker->imageUrl($width = 640, $height = 480, 'food');
+    $recipe->image_url = $this->faker->imageUrl($width = 1200, $height = 400, 'food');
     $recipe->comment_count = 0;
     $recipe->follow_count = 0;
     $recipe->save();
