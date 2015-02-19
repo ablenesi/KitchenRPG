@@ -2,7 +2,7 @@
 @section('content')
 <div class="panel panel-info ">
   <div class="panel-header">
-    <img class="img-thumbnail no-print" src={{$recipe->image_url}}/>
+    <img class="img-thumbnail no-print" src={{{$recipe->image_url}}}/>
   </div>
   <div class="panel-body">
     <div class = "content">
@@ -11,7 +11,7 @@
           <img class="img-circle img-thumbnail no-print" src={{$recipe->user->image_url}}/>
         </div>
         <div class = "col-lg-8">
-          <h1>{{ $recipe->title }}</h1>
+          <h1>{{{ $recipe->title }}}</h1>
           @if(Auth::check())
             @if(Auth::user()->id == $recipe->user->id || Auth::user()->admin == 1)
               <ul class="list-inline">
@@ -22,10 +22,10 @@
                 </li>                
             @endif
           @endif
-          <h3>{{ $recipe->user->full_name}}'s recipe</h3>
-          <p class="icon-text mdi-device-access-time no-print"> uploaded:  {{ $recipe->created_at }}</p>
+          <h3>{{{ $recipe->user->full_name}}}'s recipe</h3>
+          <p class="icon-text mdi-device-access-time no-print"> uploaded:  {{ $recipe->created_at->diffForHumans() }}</p>
           <br/>
-          <p>{{ $recipe->description }}</p>
+          <p>{{{ $recipe->description }}}</p>
         </div>
       </div>
     </div>
@@ -35,22 +35,21 @@
 <div class = "content">
   <div class = "row">
     <div class = "col-lg-4">
-      <div class="panel panel-primary">
+      <div class="panel panel-info">
         <div class="panel-heading">
-          <h3> Ingredients / {{ $recipe->serves }} serving </h3>
+          <h3> Ingredients / <span id="serving_nr">{{ $recipe->serves }}</span> serving </h3>
         </div>
         <div class="panel-body">
 
           @foreach($recipe->ingredients as $ingredient)
-          <div class="list-group-item">
-            <h4 class="list-group-item-heading mdi-toggle-check-box-outline-blank"> {{$ingredient->quantity}} {{$ingredient->unit}} {{$ingredient->name}}</h4>
+          <div class="list-group-item">           
+              <h4 class="list-group-item-heading mdi-toggle-check-box-outline-blank"> <span class="ingredient_nr">{{$ingredient->quantity}}</span>  {{{$ingredient->unit}}} {{{$ingredient->name}}}</h4> 
           </div>
           @endforeach
           @include('ingredients.include.create')
           <br/>
           <div class="form-group no-print">
-            <input class="form-control floating-label" id="focusedInput" type="text" placeholder="Enter servings number">
-            <button type="submit" class="btn btn-primary strech">Add selected to shopping list</button>
+            <input class="form-control " id="focusedInput" type="number" placeholder="Enter servings number">            
           </div>
         </div>
       </div>
@@ -75,7 +74,7 @@
             </div>
 
             <div class="list-group-item no-print">
-              <h4 class="list-group-item-heading mdi-communication-chat"> Comment count: {{$recipe->comment_count}}</h4>
+              <h4 class="list-group-item-heading mdi-communication-chat"> Comment count: {{$recipe->comments()->count()}}</h4>
             </div>
 
             <div class="list-group-item no-print">

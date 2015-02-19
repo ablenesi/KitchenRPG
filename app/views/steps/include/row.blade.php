@@ -3,7 +3,7 @@
 <div class="media">	  
   <div class="media-body">    
 	<h4 class="media-heading">{{$step->number+1}}</h4>
-    <p class="list-group-item-text"> {{$step->description}} </p>
+    <p class="list-group-item-text"> {{{$step->description}}} </p>
   </div>
 </div>  
 </div>

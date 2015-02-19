@@ -4,10 +4,10 @@
   <meta name="viewport" content="width=device-width, initial-scali=1"/>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material css -->
-  <!--
+
   <link href="/css/ripples.min.css" rel="stylesheet">
   <link href="/css/material.css" rel="stylesheet">
-  -->
+
   <link rel= "stylesheet" href="/css/style.css"/>
   <title>KitcheRPG</title>
   </head>
