@@ -14,7 +14,7 @@
           <h1>{{{ $recipe->title }}}</h1>
           @if(Auth::check())
             @if(Auth::user()->id == $recipe->user->id || Auth::user()->admin == 1)
-              <ul class="list-inline">
+              <ul class="list-inline no-print">
                 <li title="Delete this recipe">    
                   {{ Form::open(array('route' => array('recipes.destroy', $recipe->id), 'method' => 'delete')) }}
                     <button type="submit" href="{{ URL::route('recipes.destroy', $recipe->id) }}" class="btn btn-danger btn-mini">Delete</button>
@@ -40,16 +40,20 @@
           <h3> Ingredients / <span id="serving_nr">{{ $recipe->serves }}</span> serving </h3>
         </div>
         <div class="panel-body">
-
-          @foreach($recipe->ingredients as $ingredient)
-          <div class="list-group-item">           
-              <h4 class="list-group-item-heading mdi-toggle-check-box-outline-blank"> <span class="ingredient_nr">{{$ingredient->quantity}}</span>  {{{$ingredient->unit}}} {{{$ingredient->name}}}</h4> 
+          <div id="list-group">
+            @foreach($recipe->ingredients as $ingredient)
+            <div class="list-group-item ">           
+                <h4 class="list-group-item-heading">
+                  <span class= "mdi-toggle-check-box-outline-blank printable"></span>
+                  <span class="ingredient_nr">{{$ingredient->quantity}}</span>  
+                  {{{$ingredient->unit}}} {{{$ingredient->name}}}</h4> 
+            </div>
+            @endforeach              
           </div>
-          @endforeach
           @include('ingredients.include.create')
           <br/>
           <div class="form-group no-print">
-            <input class="form-control " id="focusedInput" type="number" placeholder="Enter servings number">            
+            <input class="form-control" disabled name="serving_nr_input" id="serving_nr_input" type="number" placeholder="Enter servings number">            
           </div>
         </div>
       </div>
@@ -91,12 +95,12 @@
           <h3> Steps: </h3>
         </div>
         <div class="panel-body">
-          <div class="list-group">
+          <div id = "list-steps" class="list-group">
             @foreach($recipe->steps as $step)
               @include('steps.include.row')
-            @endforeach
-            @include('steps.include.create')
+            @endforeach            
           </div>
+          @include('steps.include.create')
         </div>
       </div>
     </div>
@@ -121,4 +125,6 @@
       </div>
     </div>
   </div>
+  <!-- serving number changer-->
+  <script src="/js/recipes/serving.js"></script>
 @stop

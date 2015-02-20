@@ -1,7 +1,7 @@
 <html>
   <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scali=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material css -->
 
@@ -9,6 +9,8 @@
   <link href="/css/material.css" rel="stylesheet">
 
   <link rel= "stylesheet" href="/css/style.css"/>
+
+  <script src="/js/jquery-1.11.2.min.js"></script>
   <title>KitcheRPG</title>
   </head>
   <body>
@@ -60,8 +62,7 @@
       </div>
     </footer>
     <!-- Your site ends -->
-
-    <script src="/js/jquery-1.11.2.min.js"></script>
+    
     <script src="/js/bootstrap.min.js"></script>
 
     <script src="/js/ripples.min.js"></script>

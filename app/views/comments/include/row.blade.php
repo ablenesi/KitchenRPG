@@ -14,7 +14,7 @@
     </a>
     <p class="list-group-item-text"> {{{ $comment->comment }}} </p>
     @if(Auth::check())
-      @if(Auth::user()->admin == 1)+
+      @if(Auth::user()->admin == 1)
       <br/>
       {{ Form::open(array('route' => array('comments.destroy', $comment->id), 'method' => 'delete')) }}
         <button type="submit" href="{{ URL::route('comments.destroy', $comment->id) }}" class="btn btn-danger btn-sm">Delete comment</button>

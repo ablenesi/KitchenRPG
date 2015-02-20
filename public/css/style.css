@@ -59,6 +59,13 @@
   margin-right: auto;
 }
 
+@media screen
+{
+    .printable, .printable * {
+        display: none !important;
+    }
+}
+
 @media print
 {    
     .no-print, .no-print *

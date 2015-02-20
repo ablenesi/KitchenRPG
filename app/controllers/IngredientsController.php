@@ -31,19 +31,59 @@ class IngredientsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validation = Validator::make(Input::all(),Ingredient::$rules);
-		if ($validation->fails())
+		//check if its our form
+        if ( Session::token() !== Input::get( '_token' ) ) {
+            return Response::json( array(
+                'msg' => 'Unauthorized attempt to create setting'
+            ) );
+        }
+ 
+        $name = Input::get( 'name' );
+        $quantity = Input::get( 'quantity' );
+        $unit = Input::get( 'unit' );
+
+        //validate data
+        $validator = Validator::make(
+		    array(	'name' => $name,
+		    		'quantity' => $quantity,
+		    		'unit' => $unit),
+		    array(	'name' => array('required', 'min:2'),
+		    		'quantity' => array('required','numeric','min:1'),
+		    		'unit' => array('required', 'min:1'))
+		);
+        
+        // save to database or sent error based on validation
+        if ($validator->fails())
 		{
-			return Redirect::back()->withInput()->withErrors($validation->messages());
+			 $response = array(
+            	'status' => 'failed',
+            	'errorMsgName' => $validator->messages()->first('name'),
+            	'errorMsgQuantity' => $validator->messages()->first('quantity'),
+            	'errorMsgUnit' => $validator->messages()->first('unit'),
+        	);
+
+		}else{
+			$ingredient = new Ingredient();
+			$ingredient->name = $name;
+			$ingredient->quantity = $quantity;
+			$ingredient->unit = $unit;
+			$recipe = Recipe::where('id',Input::get('id'))->first();
+			$recipe->ingredients()->save($ingredient);
+			
+			$response = array(
+				'status' => 'success',
+				'name' => $name,
+				'quantity' => $quantity,
+				'unit' => $unit
+			);				
 		}
 
-		$ingredient = new Ingredient();
-		$ingredient->name = Input::get('name');
-		$ingredient->quantity = Input::get('quantity');
-		$ingredient->unit = Input::get('unit');
-		$recipe = Recipe::where('id',Input::get('id'))->first();
-		$recipe->ingredients()->save($ingredient);		
-		return Redirect::back();
+		//handel return
+		if(Input::get('ajax') == 1){
+			return Response::json( $response );	
+		}else{
+			return Redirect::back()->withInput()->withErrors($validator->messages());
+		}
 	}
 
 

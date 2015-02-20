@@ -31,19 +31,50 @@ class StepsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validation = Validator::make(Input::all(),Step::$rules);
-		if ($validation->fails())
+		//check if its our form
+        if ( Session::token() !== Input::get( '_token' ) ) {
+            return Response::json( array(
+                'msg' => 'Unauthorized attempt to create setting'
+            ) );
+        }
+ 
+        $description = Input::get( 'description' );
+
+        //validate data
+        $validator = Validator::make(
+		    array('description' => $description),
+		    array('description' => array('required', 'min:10'))
+		);
+        
+        // save to database or sent error based on validation
+        if ($validator->fails())
 		{
-			return Redirect::back()->withInput()->withErrors($validation->messages());
+			 $response = array(
+            	'status' => 'failed',
+            	'msg' => $validator->messages()->first('description')
+        	);
+
+		}else{
+			$step = new Step();
+			$step->description = $description;			
+			$step->image_url = "";
+			$id =Input::get('id');
+			$recipe = Recipe::where('id',$id)->first();
+			$step->number = $recipe->steps()->count()+1;
+			$recipe->steps()->save($step);
+			$response = array(
+            	'status' => 'success',
+            	'msg' => $description,
+            	'nr' => $recipe->steps()->count()
+        	);
 		}
 
-		$step = new Step();
-		$step->description = Input::get('description');
-		$step->number = Input::get('nr');
-		$step->image_url = "";
-		$recipe = Recipe::where('id',Input::get('id'))->first();
-		$recipe->steps()->save($step);		
-		return Redirect::back();
+		//handel return
+		if(Input::get('ajax')==1){
+			return Response::json( $response );	
+		}else{
+			return Redirect::back()->withInput()->withErrors($validator->messages());
+		}
 	}
 
 

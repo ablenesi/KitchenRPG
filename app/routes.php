@@ -18,7 +18,6 @@ Route::get('/', function()
 
 Route::get('login', 'SessionsController@create');
 Route::get('logout', 'SessionsController@destroy');
-Route::get('dashboard', 'SessionsController@show');
 Route::get('register', 'UsersController@create');
 
 Route::resource('users', 'UsersController');

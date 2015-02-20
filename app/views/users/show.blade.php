@@ -17,6 +17,7 @@
         <p class="icon-text"> {{ $user->created_at->diffForHumans() }}</p>
         <p class="icon-text mdi-communication-email"> Email:</p>
         <p class="icon-text"> {{{ $user->email }}}</p>
+        {{-- Manage description create if is null (whit ajax) --}}
         @include('users.include.description')
       </div>
     </div>

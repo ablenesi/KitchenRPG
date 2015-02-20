@@ -81,9 +81,48 @@ class UsersController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
-		//
+		//check if its our form
+        if ( Session::token() !== Input::get( '_token' ) ) {
+            return Response::json( array(
+                'msg' => 'Unauthorized attempt to create setting'
+            ) );
+        }
+ 
+        $description = Input::get( 'description' ); 		
+
+        //validate data
+        $validator = Validator::make(
+		    array('description' => $description),
+		    array('description' => array('required', 'min:10'))
+		);
+        
+        // save to database or sent error based on validation
+        if ($validator->fails())
+		{
+			 $response = array(
+            	'status' => 'failed',
+            	'msg' => $validator->messages()->first('description'),
+        	);
+
+		}else{
+			$user =Auth::user();
+	 		$user->description = $description;
+	 		$user->save();
+	 		$response = array(
+            	'status' => 'success',
+            	'msg' => $description,
+        	);
+		}
+
+		//handel return
+		if(Input::get('ajax')==1){
+			return Response::json( $response );	
+		}else{
+			return Redirect::back()->withInput()->withErrors($validator->messages());
+		}
+        
 	}
 
 
@@ -97,6 +136,5 @@ class UsersController extends \BaseController {
 	{
 		//
 	}
-
 
 }
